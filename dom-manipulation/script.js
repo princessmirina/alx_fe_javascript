@@ -78,14 +78,31 @@ function createAddQuoteForm() {
   container.appendChild(addButton);
 }
 
+let selectedCategory = "all"; // Global variable
+
+// On page load
 window.onload = () => {
   const storedQuotes = localStorage.getItem("quotes");
   if (storedQuotes) quotes = JSON.parse(storedQuotes);
   populateCategories();
   restoreLastFilter();
   showRandomQuote();
-  createAddQuoteForm(); // <-- Add this
+  createAddQuoteForm();
 };
+
+// Update selectedCategory when dropdown changes
+function filterQuotes() {
+  selectedCategory = document.getElementById("categoryFilter").value;
+  saveLastFilter(selectedCategory);
+  showRandomQuote();
+}
+
+// Get quotes based on selectedCategory
+function getFilteredQuotes() {
+  return selectedCategory === "all"
+    ? quotes
+    : quotes.filter((q) => q.category === selectedCategory);
+}
 
 // Save quotes to local storage
 function saveQuotes() {
