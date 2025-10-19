@@ -50,6 +50,43 @@ function addQuote() {
   showRandomQuote();
 }
 
+function createAddQuoteForm() {
+  const container = document.getElementById("quoteFormContainer");
+  container.innerHTML = ""; // Clear previous form if any
+
+  // Create input for quote text
+  const textInput = document.createElement("input");
+  textInput.id = "newQuoteText";
+  textInput.type = "text";
+  textInput.placeholder = "Enter a new quote";
+
+  // Create input for category
+  const categoryInput = document.createElement("input");
+  categoryInput.id = "newQuoteCategory";
+  categoryInput.type = "text";
+  categoryInput.placeholder = "Enter quote category";
+
+  // Create add button
+  const addButton = document.createElement("button");
+  addButton.id = "addQuoteButton";
+  addButton.innerText = "Add Quote";
+  addButton.addEventListener("click", addQuote); // Attach function
+
+  // Append elements to container
+  container.appendChild(textInput);
+  container.appendChild(categoryInput);
+  container.appendChild(addButton);
+}
+
+window.onload = () => {
+  const storedQuotes = localStorage.getItem("quotes");
+  if (storedQuotes) quotes = JSON.parse(storedQuotes);
+  populateCategories();
+  restoreLastFilter();
+  showRandomQuote();
+  createAddQuoteForm(); // <-- Add this
+};
+
 // Save quotes to local storage
 function saveQuotes() {
   localStorage.setItem("quotes", JSON.stringify(quotes));
