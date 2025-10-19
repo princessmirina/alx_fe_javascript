@@ -27,12 +27,12 @@ window.onload = () => {
 function showRandomQuote() {
   const filteredQuotes = getFilteredQuotes();
   if (filteredQuotes.length === 0) {
-    document.getElementById("quoteDisplay").innerText =
+    document.getElementById("quoteDisplay").textContent =
       "No quotes available for this category.";
     return;
   }
   const randomIndex = Math.floor(Math.random() * filteredQuotes.length);
-  document.getElementById("quoteDisplay").innerText =
+  document.getElementById("quoteDisplay").textContent =
     filteredQuotes[randomIndex].text;
 }
 
@@ -52,7 +52,7 @@ function addQuote() {
 
 function createAddQuoteForm() {
   const container = document.getElementById("quoteFormContainer");
-  container.innerHTML = ""; // Clear previous form if any
+  container.textContent = ""; // Clear previous form if any
 
   // Create input for quote text
   const textInput = document.createElement("input");
@@ -199,7 +199,7 @@ async function syncWithServer() {
 
 function notifyUser(message) {
   const div = document.createElement("div");
-  div.innerText = message;
+  div.textContent = message;
   div.style.background = "#fffae6";
   div.style.border = "1px solid #ffd700";
   div.style.padding = "10px";
