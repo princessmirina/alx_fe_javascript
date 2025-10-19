@@ -184,21 +184,21 @@ function importFromJsonFile(event) {
 const SERVER_URL = "https://jsonplaceholder.typicode.com/posts"; // Mock API
 
 // Periodic sync every 30 seconds
-setInterval(syncWithServer, 30000);
+setInterval(fetchQuotesaaFromServer, 30000);
 
-async function syncWithServer() {
+async function fetchQuotesaaFromServer() {
   try {
     // Fetch mock server data
     const response = await fetch(SERVER_URL);
     const serverData = await response.json();
 
-    // For demo, only take first 5 quotes from server
+    // Take first 5 items for demo
     const serverQuotes = serverData.slice(0, 5).map((item) => ({
       text: item.title,
       category: "Server",
     }));
 
-    // Merge with local, server takes precedence
+    // Merge server quotes with local quotes (server takes precedence)
     serverQuotes.forEach((sq) => {
       if (!quotes.some((q) => q.text === sq.text)) quotes.push(sq);
     });
@@ -208,10 +208,9 @@ async function syncWithServer() {
 
     console.log("Synced with server successfully");
   } catch (err) {
-    console.error("Error syncing with server:", err);
+    console.error("Error fetching from server:", err);
   }
 }
-
 //Optional Conflict Notification
 
 function notifyUser(message) {
